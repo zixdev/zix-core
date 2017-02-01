@@ -1,0 +1,4 @@
+/*
+ * Init Routes
+ */
+import './routes';
