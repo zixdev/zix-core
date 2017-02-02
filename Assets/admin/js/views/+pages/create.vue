@@ -13,6 +13,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('table.title') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <input class="form-control" type="text"
                                    v-model="page.title"
@@ -29,6 +30,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('table.slug') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <input class="form-control" type="text"
                                    v-model="page.slug"
@@ -45,15 +47,16 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('table.sites') }} :
                         </label>
+
                         <div class="col-sm-10">
 
                             <multiselect
-                                    :value="page.sites"
-                                    :options="sites"
-                                    :multiple="true"
-                                    key="id"
-                                    label="name"
-                                    @input="updateSelected">
+                                :value="page.sites"
+                                :options="sites"
+                                :multiple="true"
+                                :track-by="'id'"
+                                label="name"
+                                @input="updateSelected">
                             </multiselect>
                             <span v-if="form.errors && form.errors.sites" class="help-block m-b-none text-danger">{{form.errors.sites.toString()}}</span>
                         </div>
@@ -64,11 +67,12 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('table.content') }} :
                         </label>
+
                         <div class="col-sm-10">
-                            <tinymce-editor
-                                    :content.sync="page.content"
-                                    @change="updateContent"
-                                    ></tinymce-editor>
+                            <html-editor
+                                :content.sync="page.content"
+                                @change="updateContent"
+                            ></html-editor>
                             <span v-if="form.errors && form.errors.ui" class="help-block m-b-none text-danger">{{form.errors.ui.toString()}}</span>
                         </div>
                     </div>
@@ -78,6 +82,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('seo.title') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <input class="form-control" type="text"
                                    v-model="page.seo.title"
@@ -92,6 +97,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('seo.keywords') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <input class="form-control" type="text"
                                    v-model="page.seo.keywords"
@@ -106,6 +112,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('seo.description') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <input class="form-control" type="text"
                                    v-model="page.seo.description"
@@ -119,6 +126,7 @@
                         <label class="col-sm-2 control-label">
                             {{ $t('table.status') }} :
                         </label>
+
                         <div class="col-sm-10">
                             <div class="material-switch">
                                 <input id="status" v-model="page.status" type="checkbox"/>
@@ -146,13 +154,12 @@
 
 <script type="text/babel">
     import Component from 'vue-class-component'
-    import TinymceEditor from '../../components/tinymce-editor';
     import Multiselect from 'vue-multiselect'
 
 
     @Component({
         components: {
-            TinymceEditor, Multiselect
+            Multiselect
         }
     })
     export default class Create {
@@ -176,6 +183,7 @@
                 sites: [],
             };
         }
+
         get edit() {
             return this.$route.params.id ? true : false;
         }
@@ -183,6 +191,7 @@
         updateContent(content) {
             this.page.content = content;
         }
+
         mounted() {
 
             /*
@@ -201,7 +210,7 @@
                     content: '',
                     sites: []
                 };
-                this.edit ? this.updateEditPage() : false ;
+                this.edit ? this.updateEditPage() : false;
             });
             /**
              * When form title changes.
@@ -220,7 +229,7 @@
                     });
 
 
-            this.edit ? this.updateEditPage() : false ;
+            this.edit ? this.updateEditPage() : false;
         }
 
         save() {
@@ -230,7 +239,7 @@
         }
 
         create() {
-            axios.post(this.$store.state.config.api_url + 'pages', this.page)
+            this.$http.post(this.$store.state.config.api_url + 'pages', this.page)
                     .then(response => {
                         this.$events.$emit('notify', {
                             type: 'info',
@@ -240,13 +249,18 @@
                         this.$router.push({name: 'pages.all'})
                     })
                     .catch(error => {
+                        this.$events.$emit('notify', {
+                            type: 'warning',
+                            title: 'Warning !',
+                            message: 'Please Check your page details!'
+                        })
                         this.form.errors = error.data;
                         this.form.submitting = false;
                     });
         }
 
         update() {
-            axios.put(this.$store.state.config.api_url + 'pages/' + this.$route.params.id, this.page)
+            this.$http.put(this.$store.state.config.api_url + 'pages/' + this.$route.params.id, this.page)
                     .then(response => {
                         this.$router.push({name: 'pages.all'});
                         this.$events.$emit('notify', {
@@ -256,6 +270,11 @@
                         })
                     })
                     .catch(error => {
+                        this.$events.$emit('notify', {
+                            type: 'warning',
+                            title: 'Warning !',
+                            message: 'Please Check your page details!'
+                        })
                         this.form.errors = error.data;
                         this.form.submitting = false;
                     });

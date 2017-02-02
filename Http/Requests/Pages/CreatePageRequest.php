@@ -24,8 +24,8 @@ class CreatePageRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:255',
-            'slug'  => 'required|min:3|max:255',
+            'title' => 'required|min:3|max:255|unique:pages',
+            'slug'  => 'required|min:3|max:255|unique:pages',
             'sites' => 'required',
             'content' => 'required',
         ];
