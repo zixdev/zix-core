@@ -23,6 +23,16 @@ Route::group(['namespace' => '\Menu', 'middleware' => 'api'], function ($router)
         'before' => 'can:update_menu'
     ]);
 
+    $router->post('menu/{id}', [
+        'uses' => 'ManageMenuController@updateLinksOrder',
+        'before' => 'can:update_menu'
+    ]);
+
+    $router->post('menu/{id}/links', [
+        'uses' => 'ManageMenuController@addLink',
+        'before' => 'can:update_menu'
+    ]);
+
     $router->delete('menu/{id}', [
         'uses' => 'ManageMenuController@destroy',
         'before' => 'can:delete_menu'

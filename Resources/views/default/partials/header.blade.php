@@ -24,7 +24,9 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                @include(config('laravel-menu.views.bootstrap-items'), array('items' => Menu::get('navbar')->roots()))
+                @if(Menu::get('navbar'))
+                    @include(config('laravel-menu.views.bootstrap-items'), array('items' => Menu::get('navbar')->roots()))
+                @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

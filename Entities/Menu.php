@@ -10,10 +10,7 @@ use Zix\Core\Helpers\Traits\Model\HasSiteTrait;
 class Menu extends Model
 {
     use SoftDeletes, HasFiltrableTrait, HasSiteTrait;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'items'];
 
-    public function links()
-    {
-        return $this->hasMany(MenuItems::class);
-    }
+
 }

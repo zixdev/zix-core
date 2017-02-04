@@ -17,6 +17,7 @@ class CreateMenusTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->longText('items');
 
             $table->timestamps();
             $table->softDeletes();

@@ -31,17 +31,21 @@
     @Component
     export default class Menus {
         mounted() {
+            let self = this;
             let table = DataTable;
             table.url = '/api/menu';
             table.edit = 'menu.edit';
             table.delete = 'menu.delete';
-            table.actions = '';
+            table.actions = `<a title="${this.$t('menu.items.index  ')}" class="items btn btn-default"> <i class="fa fa-bars"></i></a>`;
             table.columns = [
                 {data: 'id'},
                 {data: 'name'},
                 {data: 'created_at'}
             ];
-            table.init();
+            table.init()
+                .on('click', 'a.items', function (e) {
+                    self.$router.push({name: 'menu.items.index', params: {id: $(this).parent().data('href')}});
+                })
         }
 
     }

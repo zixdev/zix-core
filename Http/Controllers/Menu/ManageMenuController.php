@@ -39,7 +39,10 @@ class ManageMenuController
      */
     public function store(CreateMenuRequest $request)
     {
-        $model = $this->model->create($request->input());
+        $model = $this->model->create([
+            'name' => $request->get('name'),
+            'items' => json_encode([])
+        ]);
         event(new CreateSiteRelation($model, $request));
         return $this->respondDataCreated($model);
     }
@@ -58,5 +61,35 @@ class ManageMenuController
         return $this->respondRequestAccepted($model->update($request->input()));
     }
 
+    public function addLink(Request $request, $id)
+    {
+        $this->model->find($id)->links()->create($request->input());
+        return $this->respondWithData($this->model->with(['sites', 'links'])->find($id));
+    }
+
+    public function updateLinksOrder(Request $request, $id)
+    {
+        $model = $this->model->find($id);
+        $items = collect(json_decode($request->get('menu')));
+        $order = 0;
+        foreach ($items as $item) {
+            $model->links->find($item->id)->update([
+                'parent_id' => null,
+                'order' => $order
+            ]);
+            if (isset($item->children) && count($item->children)) {
+                foreach ($item->children as $child) {
+                    $model->links->find($child->id)->update([
+                        'parent_id' => $item->id,
+                        'order' => $order
+                    ]);
+                    $order++;
+                }
+            }
+            $order++;
+        }
+
+        return $request->all();
+    }
 
 }

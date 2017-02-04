@@ -7,7 +7,7 @@ export default [
         path: '/menu',
         name: 'menu.index',
         meta: {
-            icon: 'fa-file-text-o',
+            icon: 'fa-bars',
             menu: true,
             auth: false,
             permission: 'view_menu'
@@ -43,9 +43,18 @@ export default [
                 name: 'menu.edit',
                 meta: {
                     auth: true,
-                    permission: 'update_pages'
+                    permission: 'update_menu'
                 },
                 component: lazyLoading('+menu/create')
+            },
+            {
+                path: '/menu/:id/items',
+                name: 'menu.items.index',
+                meta: {
+                    auth: true,
+                    permission: 'create_menu'
+                },
+                component: lazyLoading('+menu/items')
             }
         ]
     }
