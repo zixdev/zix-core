@@ -67,16 +67,16 @@ export default [
                 },
                 component: lazyLoading('+system/file-manager', true)
             },
-            {
-                path: '/system/logs',
-                name: 'system.logs.index',
-                meta: {
-                    menu: true,
-                    auth: true,
-                    permission: 'view_sites'
-                },
-                component: lazyLoading('+system/logs', true)
-            },
+            //{
+            //    path: '/system/logs',
+            //    name: 'system.logs.index',
+            //    meta: {
+            //        menu: true,
+            //        auth: true,
+            //        permission: 'view_sites'
+            //    },
+            //    component: lazyLoading('+system/logs', true)
+            //},
         ]
     }
 ]

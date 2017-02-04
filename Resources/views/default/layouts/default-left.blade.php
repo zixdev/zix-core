@@ -1,0 +1,1 @@
+@extends(site()->partial('core::%s.layouts.master'))

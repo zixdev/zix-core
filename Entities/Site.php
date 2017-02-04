@@ -47,4 +47,19 @@ class Site extends Model
     {
         return $this->belongsToMany(Page::class);
     }
+
+    public function view($view)
+    {
+        if(view()->exists(sprintf($view, $this->ui))) {
+            return view(sprintf($view, $this->ui));
+        }
+        return view(sprintf($view, 'default'));
+    }
+    public function partial($view)
+    {
+        if(view()->exists(sprintf($view, $this->ui))) {
+            return sprintf($view, $this->ui);
+        }
+        return sprintf($view, 'default');
+    }
 }

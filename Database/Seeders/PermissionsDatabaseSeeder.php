@@ -21,7 +21,10 @@ class PermissionsDatabaseSeeder extends Seeder
         $role->givePermissionTo('full_access');
         $role->givePermissionTo('view_admin');
 
-        $models = ['sites', 'site_themes', 'site_configs', 'users', 'roles', 'pages', 'settings', 'forms'];
+        $models = [
+            'sites', 'site_themes', 'site_configs', 'users', 'roles', 'pages', 'settings', 'forms',
+            'menu'
+        ];
         $permissions = ['view', 'create', 'update', 'delete'];
 
         foreach($models as $model) {

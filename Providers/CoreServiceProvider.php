@@ -16,6 +16,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->register(ConsoleServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventListenersProvider::class);
+        $this->app->register(AssetsServiceProvider::class);
+        $this->app->register(MenuServiceProvider::class);
 
         $this->registerLibraries();
 

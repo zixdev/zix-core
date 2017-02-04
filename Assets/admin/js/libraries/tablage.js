@@ -61,33 +61,41 @@ export default function (app) {
                 }) // Delete a record
                 .on('click', 'a.delete', function (e) {
                     e.preventDefault();
-                    axios.delete(self.url + '/' + $(this).data('href') + '?action=delete');
-                    table.ajax.reload();
-                    app.$events.$emit('notify', {
-                        type: app.$t('table.notification.type.delete'),
-                        title: app.$t('table.notification.title.delete'),
-                        message: app.$t('table.notification.message.delete')
-                    });
+                    axios.delete(self.url + '/' + $(this).data('href') + '?action=delete')
+                        .then(() => {
+                            table.ajax.reload();
+                            app.$events.$emit('notify', {
+                                type: app.$t('table.notification.type.delete'),
+                                title: app.$t('table.notification.title.delete'),
+                                message: app.$t('table.notification.message.delete')
+                            });
+                        });
+
                 })
                 .on('click', 'a.restore', function (e) {
                     e.preventDefault();
-                    axios.delete(self.url + '/' + $(this).data('href') + '?action=restore');
-                    table.ajax.reload();
-                    app.$events.$emit('notify', {
-                        type: app.$t('table.notification.type.restore'),
-                        title: app.$t('table.notification.title.restore'),
-                        message: app.$t('table.notification.message.restore')
-                    });
+                    axios.delete(self.url + '/' + $(this).data('href') + '?action=restore')
+                        .then(() => {
+                            table.ajax.reload();
+                            app.$events.$emit('notify', {
+                                type: app.$t('table.notification.type.restore'),
+                                title: app.$t('table.notification.title.restore'),
+                                message: app.$t('table.notification.message.restore')
+                            });
+                        });
                 })
                 .on('click', 'a.force-delete', function (e) {
                     e.preventDefault();
-                    axios.delete(self.url + '/' + $(this).data('href') + '?action=force-delete');
-                    table.ajax.reload();
-                    app.$events.$emit('notify', {
-                        type: app.$t('table.notification.type.force-delete'),
-                        title: app.$t('table.notification.title.force-delete'),
-                        message: app.$t('table.notification.message.force-delete')
-                    });
+                    axios.delete(self.url + '/' + $(this).data('href') + '?action=force-delete')
+                        .then(() => {
+                            table.ajax.reload();
+                            app.$events.$emit('notify', {
+                                type: app.$t('table.notification.type.force-delete'),
+                                title: app.$t('table.notification.title.force-delete'),
+                                message: app.$t('table.notification.message.force-delete')
+                            });
+                        });
+
                 });
             $('.dataTables_length')
                 .prepend(`
