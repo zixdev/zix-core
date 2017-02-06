@@ -18,7 +18,16 @@
                                     :data-name="link.name"
                                     :data-id="link.id"
                                         >
-                                    <div class="dd-handle">{{ link.name }}</div>
+                                    <div class="dd-handle">
+                                        {{ link.name }}
+                                        <span class="pull-right dd-nodrag">
+                                            <a class="menu-delete btn btn-xs" ><i class="fa fa-trash-o"></i></a>
+                                            <a @click="editLink(link)" class="menu-edit btn btn-xs" ><i class="fa fa-edit"></i></a>
+                                        </span>
+                                    </div>
+
+
+
                                     <ol v-if="link.children" class="dd-list">
                                         <li class="dd-item" v-for="child in link.children"
                                             :data-description="child.description"
@@ -26,7 +35,13 @@
                                             :data-name="child.name"
                                             :data-id="child.id"
                                                 >
-                                            <div class="dd-handle">{{ child.name }}</div>
+                                            <div class="dd-handle">
+                                                {{ child.name }}
+                                                <span class="pull-right dd-nodrag">
+                                                    <a class="menu-delete btn btn-xs" ><i class="fa fa-trash-o"></i></a>
+                                                    <a @click="editLink(child)" class="menu-edit btn btn-xs" ><i class="fa fa-edit"></i></a>
+                                                </span>
+                                            </div>
                                         </li>
                                     </ol>
                                 </li>
@@ -36,9 +51,11 @@
                     <div class="col-md-7">
                         <div class="pull-right ">
                             <button v-if="!new_menu" class="btn btn-primary btn-sm" @click="new_menu = true">
+                                <i class="fa fa-plus-circle"></i>
                                 Add Menu
                             </button>
                             <button class="btn btn-success btn-sm" @click="saveMenu()">
+                                <i class="fa fa-floppy-o"></i>
                                 save
                             </button>
                         </div>
@@ -121,9 +138,13 @@
                                     <button @click.prevent="cancel()" class="btn btn-white">
                                         {{ $t('form.cancel') }}
                                     </button>
-                                    <button :disabled="form.submitting" class="btn btn-primary" type="submit">
+                                    <button v-if="!edit_menu" :disabled="form.submitting" class="btn btn-primary" type="submit">
                                         <i v-if="form.submitting" class="fa fa-spinner fa-pulse"></i>
                                         {{ $t('form.add') }}
+                                    </button>
+                                    <button v-else :disabled="form.submitting" class="btn btn-primary" @click.prevent="cancel()">
+                                        <i v-if="form.submitting" class="fa fa-spinner fa-pulse"></i>
+                                        Done
                                     </button>
                                 </div>
                             </div>
@@ -156,6 +177,7 @@
                     submitting: false
                 },
                 new_menu: false,
+                edit_menu: false,
                 link: {
                     name: '',
                     url: '',
@@ -164,6 +186,11 @@
                 }
 
             }
+        }
+        editLink(link) {
+            this.link = link;
+            this.new_menu = true;
+            this.edit_menu = true;
         }
 
 
@@ -177,6 +204,11 @@
             this.$watch('link.name', (title, val) => {
                 this.link.url = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '-');
                 this.link.description = 'View ' + title + ' Page';
+            });
+            $('body').on('click', '.menu-delete', function (e) {
+                e.preventDefault();
+                $(this).closest('li').remove();
+                return false;
             });
 
         }
@@ -206,6 +238,7 @@
             this.menu = data;
             this.menu.items = JSON.parse(data.items);
             $('.dd').nestable();
+
         }
 
         saveMenu() {
@@ -220,6 +253,7 @@
                     title: 'Success !',
                     message: 'Your Menu Was Updated Successfully!'
                 });
+                this.$router.push({name: 'menu.all'});
             })
         }
 
