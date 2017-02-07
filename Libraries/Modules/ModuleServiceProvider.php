@@ -23,13 +23,8 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton('modules', function ($app) {
             return new Module($app['files']);
         });
-
-
         $this->registerModulesProviders();
         $this->bindContracts();
-        \Route::any( '{catchall}', function ( $page ) {
-            return view('master');
-        } );
 
     }
 

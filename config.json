@@ -8,7 +8,8 @@
   "order": 0,
   "providers": [
     "Zix\\Core\\Providers\\CoreServiceProvider",
-    "Zix\\Core\\Libraries\\Sites\\SiteServiceProvider"
+    "Zix\\Core\\Libraries\\Sites\\SiteServiceProvider",
+    "Zix\\Core\\Libraries\\Zexus\\ZexusServiceProvider"
   ],
   "aliases":{},
   "files": [

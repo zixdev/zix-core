@@ -9,6 +9,7 @@ use Zix\Core\Http\Requests\User\UserSelectAvatarRequest;
 use Zix\Core\Http\Requests\User\UserUpdateInfoRequest;
 use Zix\Core\Http\Requests\User\UserUpdateRequest;
 use Zix\Core\Support\Traits\ApiResponses;
+use Hash;
 
 /**
  * Class UserController
@@ -68,7 +69,7 @@ class UserController
 
         return $this->respondWithData([
             'user' => $request->user(),
-            'message' => 'Your Account Was Successfully updated'
+            'message' => 'Great! Your profile was successfully updated'
         ]);
     }
 

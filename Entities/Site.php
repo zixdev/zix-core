@@ -48,12 +48,18 @@ class Site extends Model
         return $this->belongsToMany(Page::class);
     }
 
-    public function view($view)
+    /**
+     * @param $view
+     * @param array $data
+     * @param array $headers
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function view($view, $data = [], $headers = [])
     {
         if(view()->exists(sprintf($view, $this->ui))) {
-            return view(sprintf($view, $this->ui));
+            return view(sprintf($view, $this->ui), $data, $headers);
         }
-        return view(sprintf($view, 'default'));
+        return view(sprintf($view, 'default'), $data, $headers);
     }
     public function partial($view)
     {

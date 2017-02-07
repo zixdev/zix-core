@@ -34,7 +34,9 @@
 
             <div class="col-md-2 col-sm-6">
                 <h6 class="heading7">GENERAL LINKS</h6>
-                {!! Menu::get('footer')->asUl(['class' => 'list-unstyled']) !!}
+                @if(Menu::get('footer'))
+                    {!! Menu::get('footer')->asUl(['class' => 'list-unstyled']) !!}
+                @endif
             </div>
             <div class="col-md-3 col-sm-6 paddingtop-bottom">
                 <h6 class="heading7">LATEST POST</h6>

@@ -17,11 +17,28 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'user'      => \Auth::user() ? \Auth::user() : [],
         ]) !!};
+        window.Spark = {
+            // Laravel CSRF Token
+            csrfToken: '{{ csrf_token() }}',
+
+            // Current User ID
+            userId: {!! Auth::user() ? Auth::id() : 'null' !!},
+
+            // Current Team ID
+            @if (Auth::user() && Zexus::usingTeams() && Auth::user()->hasTeams())
+                currentTeamId: {{ Auth::user()->currentTeam->id }},
+            @else
+                currentTeamId: null,
+            @endif
+
+            stripeKey: '{{ config('services.stripe.key') }}'
+        }
     </script>
 </head>
 <body>
-<div id="app">
+<div id="spark-app" v-cloak>
     @include(site()->partial('core::default.partials.header'))
 
     @yield('main')

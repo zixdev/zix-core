@@ -41,7 +41,17 @@ class RouteServiceProvider extends ServiceProvider
             'prefix'    => env('API_PREFIX')
         ], function () {
 
-            $files = File::files(__DIR__.'/../Http/Routes');
+            $files = File::files(__DIR__.'/../Http/Routes/api');
+
+            foreach($files as $file) {
+                File::getRequire($file);
+            }
+        });
+        Route::group([
+            'namespace' => $this->namespace,
+        ], function () {
+
+            $files = File::files(__DIR__.'/../Http/Routes/web');
 
             foreach($files as $file) {
                 File::getRequire($file);
