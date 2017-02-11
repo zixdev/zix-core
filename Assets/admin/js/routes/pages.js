@@ -4,6 +4,7 @@ const lazyLoading = (name, index = false) => resolve => require([`../views/${nam
 
 export default [
     {
+        order: 2,
         path: '/pages',
         name: 'pages.index',
         meta: {

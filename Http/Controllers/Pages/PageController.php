@@ -2,8 +2,8 @@
 
 namespace Zix\Core\Http\Controllers\Pages;
 
-
 use Zix\Core\Entities\Page;
+use Zix\Core\Helpers\Traits\Controllers\HasSEOTrait;
 use Zix\Core\Support\Traits\ApiResponses;
 
 /**
@@ -13,7 +13,7 @@ use Zix\Core\Support\Traits\ApiResponses;
  */
 class PageController
 {
-    use ApiResponses;
+    use ApiResponses, HasSEOTrait;
 
     /**
      * PageController constructor.
@@ -31,6 +31,11 @@ class PageController
      */
     public function show($slug)
     {
-        return $this->respondWithData($this->model->with(['sites', 'seo'])->where('slug', $slug)->first());
+        $page = $this->model->with(['sites', 'seo'])->where('slug', $slug)->first();
+        if($page) {
+            $this->seo($page->seo);
+            return site()->view('core::%s.pages.index', compact('page'));
+        }
+        return view('errors.404');
     }
 }

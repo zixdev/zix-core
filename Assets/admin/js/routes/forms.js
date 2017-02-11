@@ -3,6 +3,7 @@ const lazyLoading = (name, index = false) => resolve => require([`../views/${nam
 
 const FormRoutes = [
     {
+        order: 98,
         path: '/forms',
         name: 'forms.index',
         meta: {

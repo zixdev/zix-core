@@ -57,6 +57,9 @@ class RouteServiceProvider extends ServiceProvider
                 File::getRequire($file);
             }
         });
+        Route::group(['namespace' => $this->namespace.'\Pages', 'middleware' => ['web']], function ($router){
+            $router->get('{slug}', 'PageController@show');
+        });
     }
 
     private function registerSiteConfig()

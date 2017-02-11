@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('assets/'.site()->ui.'/css/app.css') }}" rel="stylesheet">
-
+    {!! SEO::generate() !!}
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([

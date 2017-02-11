@@ -14,10 +14,10 @@ class CoreServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->register(ConsoleServiceProvider::class);
-        $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventListenersProvider::class);
         $this->app->register(AssetsServiceProvider::class);
         $this->app->register(MenuServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
 
         $this->registerLibraries();
 
