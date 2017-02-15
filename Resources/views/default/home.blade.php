@@ -1,4 +1,4 @@
-@extends(site()->partial('core::%s.layouts.blank'))
+@extends(site()->partial('core::%s.layouts.default'))
 
 @section('content')
     <div class="jumbotron">

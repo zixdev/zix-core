@@ -7,7 +7,7 @@ require('./core/components');
  * Export the Spark application.
  */
 module.exports = {
-    el: '#spark-app',
+    el: '#zix-app',
 
     /*
      * Bootstrap the application. Load the initial data.

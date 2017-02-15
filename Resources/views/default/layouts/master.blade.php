@@ -38,12 +38,8 @@
     </script>
 </head>
 <body>
-<div id="spark-app" v-cloak>
-    @include(site()->partial('core::default.partials.header'))
-
+<div id="zix-app" v-cloak>
     @yield('main')
-
-    @include(site()->partial('core::default.partials.footer'))
 </div>
 
 <!-- Scripts -->

@@ -12,3 +12,13 @@
  * Spark Styling...
  */
 @import "themes/spark/spark";
+
+
+@import "variables";
+/*
+ * Partials Styling...
+ */
+
+@import "partials/header";
+@import "partials/footer";
+@import "partials/banner";

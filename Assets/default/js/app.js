@@ -15,4 +15,4 @@
 
 require('./core/bootstrap');
 
-new Vue(require('./spark'));
+new Vue(require('./main'));

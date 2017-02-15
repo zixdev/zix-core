@@ -56,6 +56,9 @@ class Site extends Model
      */
     public function view($view, $data = [], $headers = [])
     {
+        if(view()->exists(str_replace('::', '.', sprintf($view, $this->ui)))) {
+            return view(str_replace('::', '.', sprintf($view, $this->ui)), $data, $headers);
+        }
         if(view()->exists(sprintf($view, $this->ui))) {
             return view(sprintf($view, $this->ui), $data, $headers);
         }
@@ -63,6 +66,9 @@ class Site extends Model
     }
     public function partial($view)
     {
+        if(view()->exists(str_replace('::', '.', sprintf($view, $this->ui)))) {
+            return str_replace('::', '.', sprintf($view, $this->ui));
+        }
         if(view()->exists(sprintf($view, $this->ui))) {
             return sprintf($view, $this->ui);
         }
