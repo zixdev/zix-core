@@ -25,11 +25,11 @@ class ContactCreateRequest extends Request
     {
         return [
             'name'                  => 'required|min:3|max:255',
-            'phone'                 => 'required|min:3|max:255',
+            'phone'                 => 'min:3|max:255',
             'email'                 => 'required|email',
-            'address'               => 'required|min:3|max:255',
+            'address'               => 'min:3|max:255',
             'message'               => 'required|min:30',
-            'g-recaptcha-response'  => 'required|recaptcha'
+//            'g-recaptcha-response'  => 'required|recaptcha'
         ];
     }
 }

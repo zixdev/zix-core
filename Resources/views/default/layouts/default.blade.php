@@ -16,9 +16,11 @@
     @yield('after-banner')
 
     {{--Bread Cumb--}}
+    @yield('before-content')
     <div class="container">
         @yield('content')
     </div>
+    @yield('after-content')
 
     @yield('before-footer')
     @section('footer')

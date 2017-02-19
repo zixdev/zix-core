@@ -15,7 +15,7 @@ footer.main-footer {
       color: $footer-link-color;
       transition: color 0.2s linear 0s, background 0.2s linear 0s;
       &:hover {
-        color: darken($footer-link-color, 10%);
+        color: $footer-hover-link-color;
         text-decoration: none;
       }
     }
@@ -50,7 +50,7 @@ footer.copyright-footer {
     color: $footer-copyright-link-color;
     transition: color 0.2s linear 0s, background 0.2s linear 0s;
     &:hover {
-      color: darken($footer-copyright-link-color, 10%);
+      color: $footer-copyright-hover-link-color;
       text-decoration: none;
     }
   }

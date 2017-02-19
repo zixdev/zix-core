@@ -4,6 +4,10 @@
 Route::group(['namespace' => '\User', 'middleware' => ['web', 'auth']], function ($router) {
 
     $router->get('settings', 'UserSettingsController@index');
+    $router->get('logout', function() {
+        \Auth::logout();
+        return redirect('/');
+    });
 
     // Ajax
     $router->group(['prefix' => 'web'], function($router) {
